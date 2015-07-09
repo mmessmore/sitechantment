@@ -11,7 +11,11 @@ __version__ = '0.1.0'
 import sys
 import os
 import re
-from urlparse import urljoin, urlparse
+
+if sys.version_info[0] < 3:
+    from urlparse import urljoin, urlparse
+else:
+    from urllib.parse import urljoin, urlparse
 
 import enchant
 from enchant.checker import SpellChecker
