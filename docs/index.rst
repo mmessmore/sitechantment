@@ -26,4 +26,4 @@ If you have any suggestions or questions about **sitechantment** feel free to em
 at mike@messmore.org.
 
 If you encounter any errors or problems with **sitechantment**, please let me know!
-Open an Issue at the GitHub http://github.com/mmessmore/sitechantment main repository.
+Open an Issue at the GitHub https://github.com/mmessmore/sitechantment main repository.

@@ -2,9 +2,6 @@
 sitechantment
 =============================
 
-.. image:: https://badge.fury.io/py/sitechantment.png
-    :target: http://badge.fury.io/py/sitechantment
-
 .. image:: https://travis-ci.org/mmessmore/sitechantment.png?branch=master
     :target: https://travis-ci.org/mmessmore/sitechantment
 

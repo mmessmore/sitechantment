@@ -4,6 +4,7 @@ Command line interface to sitechantment
 """
 
 import click
+import sys
 from . import SiteCheck
 
 

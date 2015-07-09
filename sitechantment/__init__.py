@@ -36,7 +36,8 @@ class SiteCheck():
 
     checked = []
     bad_words = []
-    htmlcomments = re.compile('\<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>')
+    htmlcomments = \
+        re.compile('\<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>')
 
     def __init__(self, lang="en_US", client=requests, verbosity=0,
                  dictfile=""):
@@ -53,7 +54,6 @@ class SiteCheck():
                     self.dic.add_to_session(line.strip())
         self.sc = SpellChecker(self.dic, chunkers=(HTMLChunker,))
 
-
     def verbose(self, msg, level=0):
         """Control console output
         :param msg: message string
@@ -61,7 +61,6 @@ class SiteCheck():
         """
         if level >= self.verbosity:
             print(msg)
-
 
     def glean_links(self, url, text):
         """Capture link URIs from an HTML page
@@ -94,7 +93,7 @@ class SiteCheck():
         # strip html comments before we go nuts
         self.sc.set_text(self.htmlcomments.sub('', res.text))
         for err in self.sc:
-            self.verbose("ERROR: "+ err.word, 1)
+            self.verbose("ERROR: " + err.word, 1)
             if err.word not in self.bad_words:
                 self.bad_words.append(err.word)
         self.checked.append(url)
@@ -114,6 +113,6 @@ class SiteCheck():
             return False
         df = open(self.dictfile, 'a')
         for word in set(self.bad_words):
-            verbose("Adding {0} to dictionary: {1}".format(word,
-                                                           self.dictfile), 1)
+            self.verbose("Adding {0} to dictionary: {1}".
+                         format(word, self.dictfile), 1)
             df.write(word + "\n")
