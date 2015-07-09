@@ -1,0 +1,2 @@
+# sitechantment
+Spellcheck a website
