@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+"""
+Command line interface to sitechantment
+"""
 
 import click
 from . import SiteCheck
@@ -12,6 +15,7 @@ from . import SiteCheck
 @click.option('--update/--noupdate', default=False)
 @click.argument('url')
 def main(verbose, quiet, dictfile, lang, update, url):
+    """Capture command line arguments and drive SiteCheck"""
 
     if quiet:
         verbose = -1

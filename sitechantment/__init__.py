@@ -1,3 +1,9 @@
+"""
+Sitechantment
+
+A way to use enchant to spellcheck as site as part of a test suite
+"""
+
 __author__ = 'Michael Messmore'
 __email__ = 'mike@messmore.org'
 __version__ = '0.1.0'
@@ -15,6 +21,14 @@ from bs4 import BeautifulSoup
 
 
 class SiteCheck():
+    """
+    Our main interface
+
+    :param lang: lang to use to construct the dictionary from
+    :param client: anything that has a get() method that accepts a url
+    :param verbosity: control console output (<0 is silent)
+    :param dictfile: file with additional words not in the system dictionaries
+    """
 
     checked = []
     bad_words = []
@@ -22,6 +36,7 @@ class SiteCheck():
 
     def __init__(self, lang="en_US", client=requests, verbosity=0,
                  dictfile=""):
+        """Set up the spellchecker and environment"""
         self.lang = lang
         self.client = requests
         self.verbosity = verbosity
@@ -34,11 +49,24 @@ class SiteCheck():
                     self.dic.add_to_session(line.strip())
         self.sc = SpellChecker(self.dic, chunkers=(HTMLChunker,))
 
+
     def verbose(self, msg, level=0):
+        """Control console output
+        :param msg: message string
+        :param level: minimum level to print at (never less than 0)
+        """
         if level >= self.verbosity:
-            print msg
+            print(msg)
+
 
     def glean_links(self, url, text):
+        """Capture link URIs from an HTML page
+        :param url: the url of the text being examined (to unravel relative
+        links)
+        :param text: the html document itself
+        :return: a list of URLs
+        """
+
         soup = BeautifulSoup(text, 'html.parser')
         old_res = urlparse(url)
         links = []
@@ -50,6 +78,11 @@ class SiteCheck():
         return links
 
     def check(self, url):
+        """Recursively check a URL
+        :param url: The url to begin checking
+        :return: a list of misspelled words
+        """
+
         if url in self.checked:
             return False
 
@@ -67,6 +100,12 @@ class SiteCheck():
         return self.bad_words
 
     def update_pwl(self):
+        """Update the personal word list with the "misspelled" words found
+
+        This is made so that internal jargon can be easily added to filter out
+        noise on future runs.
+        """
+
         if self.dictfile == "":
             return False
         df = open(self.dictfile, 'a')
