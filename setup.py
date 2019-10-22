@@ -38,7 +38,7 @@ setup(
         'beautifulsoup4==4.4.0',
         'click==3.3',
         'pyenchant==1.6.6',
-        'requests==2.7.0',
+        'requests==2.20.0',
     ],
     license='BSD',
     zip_safe=False,
